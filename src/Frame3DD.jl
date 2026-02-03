@@ -9,6 +9,7 @@ export frame3dd,
   truss_node_data::Vector{TrussNodeData}=TrussNodeData[]
   truss_bar_data::Vector{TrussBarData}=TrussBarData[]
   view::View=default_view()
+  refs::References{K,T}=References{K,T}()
 end
 
 abstract type FR3DDKey end
@@ -28,10 +29,8 @@ save_shape!(b::FR3DD, s::TrussBar) = maybe_merged_bar(b, s)
 
 # Frame3DD does not need layers
 use_material_as_layer(b::FR3DD) = false
-KhepriBase.b_current_layer(b::FR3DD) = nothing
-KhepriBase.b_current_layer(b::FR3DD, layer) = nothing
-
-#with_material_as_layer(f::Function, backend::FR3DD, material::Material) = f()
+KhepriBase.b_current_layer_ref(b::FR3DD) = nothing
+KhepriBase.b_current_layer_ref(b::FR3DD, layer) = nothing
 
 # Frame3DD Families
 abstract type Frame3DDFamily <: Family end
@@ -116,7 +115,7 @@ backend_get_family_ref(b::FR3DD, f::TrussBarFamily, tbf::Frame3DDTrussBarFamily)
   end
 
 #
-KhepriBase.b_delete_all_refs(b::FR3DD) =
+KhepriBase.b_delete_all_shape_refs(b::FR3DD) =
   begin
     empty!(b.truss_nodes)
     empty!(b.truss_bars)
