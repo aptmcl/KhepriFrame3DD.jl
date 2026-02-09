@@ -17,7 +17,7 @@ const FR3DDId = Any
 const FR3DDNativeRef = NativeRef{FR3DDKey, FR3DDId}
 const FR3DD = Frame3DDBackend{FR3DDKey, FR3DDId}
 
-void_ref(b::FR3DD) = FR3DDNativeRef(-1)
+void_ref(b::FR3DD) = -1
 
 const frame3dd = FR3DD()
 
