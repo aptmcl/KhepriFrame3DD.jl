@@ -18,4 +18,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/aptmcl/KhepriFrame3DD.jl",
+    devbranch="master",
 )
