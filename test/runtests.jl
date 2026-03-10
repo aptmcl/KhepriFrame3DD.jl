@@ -14,24 +14,24 @@ using Test
     @test isdefined(KhepriFrame3DD, :FR3DDKey)
     @test KhepriFrame3DD.FR3DDId === Any
     @test isdefined(KhepriFrame3DD, :FR3DDNativeRef)
-    @test KhepriFrame3DD.FR3DD === KhepriFrame3DD.Frame3DDBackend{KhepriFrame3DD.FR3DDKey, Any}
+    @test KhepriFrame3DD.FR3DD === KhepriFrame3DD.FR3DDBackend
   end
 
   @testset "Backend initialization" begin
     @test frame3dd isa KhepriBase.Backend
-    @test KhepriBase.backend_name(frame3dd) == "Frame3DD"
+    @test KhepriBase.backend_name(frame3dd) == "FR3DD"
     @test KhepriBase.void_ref(frame3dd) == -1
   end
 
   @testset "Backend struct fields" begin
     b = KhepriFrame3DD.FR3DD()
-    @test hasfield(typeof(b), :realized)
-    @test hasfield(typeof(b), :truss_nodes)
-    @test hasfield(typeof(b), :truss_bars)
-    @test hasfield(typeof(b), :shapes)
-    @test hasfield(typeof(b), :truss_node_data)
-    @test hasfield(typeof(b), :truss_bar_data)
-    @test hasfield(typeof(b), :refs)
+    @test hasproperty(b, :realized)
+    @test hasproperty(b, :truss_nodes)
+    @test hasproperty(b, :truss_bars)
+    @test hasproperty(b, :shapes)
+    @test hasproperty(b, :truss_node_data)
+    @test hasproperty(b, :truss_bar_data)
+    @test hasproperty(b, :refs)
     @test b.refs isa KhepriBase.References
     @test isempty(b.truss_nodes)
     @test isempty(b.truss_bars)

@@ -1,27 +1,20 @@
 export frame3dd,
        frame3DD_circular_tube_truss_bar_family
 
-@kwdef struct Frame3DDBackend{K,T} <: LazyBackend{K,T}
-  realized::Parameter{Bool}=Parameter(false)
-  truss_nodes::Vector{<:TrussNode}=TrussNode[]
-  truss_bars::Vector{<:TrussBar}=TrussBar[]
-  shapes::Vector{<:Shape}=Shape[] # This contains all the rest that is not treated yet
-  truss_node_data::Vector{TrussNodeData}=TrussNodeData[]
-  truss_bar_data::Vector{TrussBarData}=TrussBarData[]
-  view::View=default_view()
-  refs::References{K,T}=References{K,T}()
+@defbackend FR3DD FR3DD begin
+  id_type = Any
+  void_ref = -1
+  parent = LazyBackend
+  realized::Parameter{Bool} = Parameter(false)
+  truss_nodes::Vector{TrussNode} = TrussNode[]
+  truss_bars::Vector{TrussBar} = TrussBar[]
+  shapes::Vector{Shape} = Shape[]
+  truss_node_data::Vector{TrussNodeData} = TrussNodeData[]
+  truss_bar_data::Vector{TrussBarData} = TrussBarData[]
+  view::View = default_view()
 end
 
-abstract type FR3DDKey end
-const FR3DDId = Any
-const FR3DDNativeRef = NativeRef{FR3DDKey, FR3DDId}
-const FR3DD = Frame3DDBackend{FR3DDKey, FR3DDId}
-
-KhepriBase.void_ref(b::FR3DD) = -1
-
 const frame3dd = FR3DD()
-
-KhepriBase.backend_name(b::FR3DD) = "Frame3DD"
 
 # Frame3DD needs to merge nodes and bars
 save_shape!(b::FR3DD, s::TrussNode) = maybe_merged_node(b, s)
