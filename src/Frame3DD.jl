@@ -20,8 +20,8 @@ const frame3dd = FR3DD()
 save_shape!(b::FR3DD, s::TrussNode) = maybe_merged_node(b, s)
 save_shape!(b::FR3DD, s::TrussBar) = maybe_merged_bar(b, s)
 
-# Frame3DD does not need layers
-use_material_as_layer(b::FR3DD) = false
+# Frame3DD does not need layers — skip the layer-switching mechanism
+with_material_as_layer(f::Function, b::FR3DD, m::Material) = f()
 KhepriBase.b_current_layer_ref(b::FR3DD) = nothing
 KhepriBase.b_current_layer_ref(b::FR3DD, layer) = nothing
 

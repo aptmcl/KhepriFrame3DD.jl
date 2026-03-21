@@ -74,6 +74,6 @@ using Test
 
   @testset "Layer operations" begin
     b = KhepriFrame3DD.FR3DD()
-    @test KhepriFrame3DD.use_material_as_layer(b) == false
+    @test KhepriFrame3DD.use_layers_for_materials(b) == false
   end
 end
